@@ -21,6 +21,7 @@ const initGridOutput = () => {
     }
     return grid
 }
+
 const initGridInput = () => {
     const grid = []
     for (let i = 0; i < gridY; i++) {
@@ -32,6 +33,17 @@ const initGridInput = () => {
     return grid
 }
 
+const initPattern = () => {
+    const pattern = []
+    for (let i = 0; i < gridY; i++) {
+        pattern.push([])
+        for (let j = 0; j < gridX; j++) {
+            pattern[i].push(0)
+        }
+    }
+    return pattern
+}
+
 const pointer = {
     x: 0,
     y: 0
@@ -39,12 +51,29 @@ const pointer = {
 
 function App() {
 
+    const guess = 'hello'.toUpperCase()
+
     const [gridInput, setGridInput] = useState(initGridInput())
     const [gridOutput, setGridOutput] = useState(initGridOutput())
+    const [pattern, setPattern] = useState(initPattern())
 
     const checkErrors = () => {
+        // 0 IS NULL
+        // 1 IS FALSE
+        // 2 IS NOT IN POSITION
+        // 3 IS TRUE
+        console.log(gridInput[pointer.y])
         const word = gridInput[pointer.y].join('')
-        console.log(word)
+        const temppattern = []
+        for (let cw = 0; cw < guess.length; cw++) {
+            if (guess[cw] == word[cw])  temppattern.push(3) // IN POSITION
+            else if (guess.includes(word[cw])) temppattern.push(2)  // NOT IN POSITION
+            else temppattern.push(1) // FALSE
+        }
+        const temppattern2 = initPattern()
+        temppattern2[pointer.y] = temppattern
+        console.log(temppattern2)
+        setPattern(temppattern2)
     }
 
     const changeGridValue = (x, y, value) => {
@@ -57,7 +86,7 @@ function App() {
     useEffect(() => {
         console.log('modifica effettuata')
         setGridOutput(
-            gridInput.map( (row, crow) => row.map( (val, cval) => <Box inchar={ val != null ? val : '' } key={ '' + crow + cval } /> ))
+            gridInput.map( (row, crow) => row.map( (val, cval) => <Box pattern={ pattern[crow][cval] } inchar={ val != null ? val : '' } id={ '' + crow + cval } key={ '' + crow + cval } /> ))
         )
         console.log(gridOutput)
     }, [gridInput])
@@ -68,17 +97,17 @@ function App() {
             if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
             console.log(pointer)
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
+            if (pointer.x === 4) { checkErrors() }
             pointer.x++
-            if (pointer.x === 5) { checkErrors() }
         });
     }, [])
 
     return (
         <div className="App">
             <div className='wordle-navbar absolute w-full'>
-                <div className='flex items-center justify-between p-4 px-6 text-xl'>
+                <div className='flex items-center justify-between p-4 px-6'>
                     <div>Menu</div>
-                    <div className='text-2xl font-bold'>Wordle</div>
+                    <div className='text-2xl font-bold'>Swear Wordle</div>
                     <div>About</div>
                 </div>
             </div>
