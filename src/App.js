@@ -13,7 +13,7 @@ const gridY = 6
 
 const swears = 'cazzi cazzo cesso fighe froci merda merde negra negro puppa puppe tetta tette troia troie troio zinne'.split(' ')
 const guess = swears[Math.floor(Math.random() * swears.length)].toUpperCase()
-console.log(guess)
+// console.log(guess)
 
 const initGridOutput = () => {
     const grid = []
