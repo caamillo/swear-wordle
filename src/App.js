@@ -13,13 +13,18 @@ const gridY = 6
 
 const initGrid = () => {
     const grid = []
-    for (let i = 0; i < gridX; i++) {
+    for (let i = 0; i < gridY; i++) { // FUCK GITHUB COPILOT
         grid.push([])
-        for (let j = 0; j < gridY; j++) {
+        for (let j = 0; j < gridX; j++) {
             grid[i].push(<Box key={ '' + i + j } />)
         }
     }
     return grid
+}
+
+const pointer = {
+    x: 0,
+    y: 0
 }
 
 function App() {
@@ -29,13 +34,24 @@ function App() {
     const changeGridValue = (x, y, value) => {
         if (value == null || value == '') return null
         const grid = [...gridOutput]
-        grid[x][y] = <Box inchar={ value } key={ '' + x + y } />
+        grid[y][x] = <Box inchar={ value } key={ '' + x + y } />
         setGridOutput(grid)
     }
 
     useEffect(() => {
         console.log('modifica effettuata')
+        console.log(gridOutput)
     }, [gridOutput])
+
+    useEffect(() => {
+        document.addEventListener('keypress', e => {
+            if (pointer.x === 4 && pointer.y === 5) return null
+            if (pointer.x === 4) { pointer.x = 0; pointer.y++ }
+            console.log(pointer)
+            changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
+            pointer.x++
+        });
+    }, [])
 
     return (
         <div className="App">
