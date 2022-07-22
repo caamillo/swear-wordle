@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/swear-wordle/static/css/main.f8201d75.css",
+    "main.js": "/swear-wordle/static/js/main.baea7da5.js",
+    "index.html": "/swear-wordle/index.html",
+    "main.f8201d75.css.map": "/swear-wordle/static/css/main.f8201d75.css.map",
+    "main.baea7da5.js.map": "/swear-wordle/static/js/main.baea7da5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f8201d75.css",
+    "static/js/main.baea7da5.js"
+  ]
+}
