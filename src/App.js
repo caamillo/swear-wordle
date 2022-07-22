@@ -11,12 +11,22 @@ import Box from './components/Box'
 const gridX = 5
 const gridY = 6
 
-const initGrid = () => {
+const initGridOutput = () => {
     const grid = []
     for (let i = 0; i < gridY; i++) { // FUCK GITHUB COPILOT
         grid.push([])
         for (let j = 0; j < gridX; j++) {
             grid[i].push(<Box key={ '' + i + j } />)
+        }
+    }
+    return grid
+}
+const initGridInput = () => {
+    const grid = []
+    for (let i = 0; i < gridY; i++) {
+        grid.push([])
+        for (let j = 0; j < gridX; j++) {
+            grid[i].push('')
         }
     }
     return grid
@@ -29,24 +39,28 @@ const pointer = {
 
 function App() {
 
-    const [gridOutput, setGridOutput] = useState(initGrid())
+    const [gridInput, setGridInput] = useState(initGridInput())
+    const [gridOutput, setGridOutput] = useState(initGridOutput())
 
     const changeGridValue = (x, y, value) => {
         if (value == null || value == '') return null
-        const grid = [...gridOutput]
-        grid[y][x] = <Box inchar={ value } key={ '' + x + y } />
-        setGridOutput(grid)
+        const grid = [...gridInput]
+        grid[y][x] = value // <Box inchar={ value } key={ '' + x + y } />
+        setGridInput(grid)
     }
 
     useEffect(() => {
         console.log('modifica effettuata')
+        setGridOutput(
+            gridInput.map( (row, crow) => row.map( (val, cval) => <Box inchar={ val != null ? val : '' } key={ '' + crow + cval } /> ))
+        )
         console.log(gridOutput)
-    }, [gridOutput])
+    }, [gridInput])
 
     useEffect(() => {
         document.addEventListener('keypress', e => {
-            if (pointer.x === 4 && pointer.y === 5) return null
-            if (pointer.x === 4) { pointer.x = 0; pointer.y++ }
+            if (pointer.x === 5 && pointer.y === 5) return null
+            if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
             console.log(pointer)
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
             pointer.x++
@@ -64,7 +78,7 @@ function App() {
             </div>
             <div className='wordle-container flex justify-center items-center h-screen'>
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
-                    { gridOutput.map( row => row.map( col => col ) ) }
+                    { gridOutput }
                 </div>
             </div>
         </div>
