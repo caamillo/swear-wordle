@@ -8,13 +8,13 @@ function Box({ inchar, pattern, id }) {
     useEffect(() => {
         switch(pattern) {
             case 1:
-                setColor('#ff0000')
+                setColor('#6a2e2e')
                 break
             case 2:
-                setColor('#ffff00')
+                setColor('#a3a320')
                 break
             case 3:
-                setColor('#ffffff')
+                setColor('#518324')
                 break
         }
     }, [pattern])
