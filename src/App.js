@@ -8,14 +8,17 @@ import './tailwind/output.css'
 // Components
 import Box from './components/Box'
 
-const gridX = 5
+// Utils
+import { swears5 } from './utils/swears';
+import alphabet from 'alphabet'
+
 const gridY = 6
 
-const swears = 'cazzi cazzo cesso fighe froci merda merde negra negro puppa puppe tetta tette troia troie troio zinne'.split(' ')
+const swears = swears5
 const guess = swears[Math.floor(Math.random() * swears.length)].toUpperCase()
 // console.log(guess)
 
-const initGridOutput = () => {
+const initGridOutput = (gridX) => {
     const grid = []
     for (let i = 0; i < gridY; i++) { // FUCK GITHUB COPILOT
         grid.push([])
@@ -26,7 +29,7 @@ const initGridOutput = () => {
     return grid
 }
 
-const initGridInput = () => {
+const initGridInput = (gridX) => {
     const grid = []
     for (let i = 0; i < gridY; i++) {
         grid.push([])
@@ -37,7 +40,7 @@ const initGridInput = () => {
     return grid
 }
 
-const initPattern = () => {
+const initPattern = (gridX) => {
     const pattern = []
     for (let i = 0; i < gridY; i++) {
         pattern.push([])
@@ -55,9 +58,10 @@ const pointer = {
 
 function App() {
 
-    const [gridInput, setGridInput] = useState(initGridInput())
-    const [gridOutput, setGridOutput] = useState(initGridOutput())
-    const [pattern, setPattern] = useState(initPattern())
+    const [gridX, setGridX] = useState(5)
+    const [gridInput, setGridInput] = useState(initGridInput(gridX))
+    const [gridOutput, setGridOutput] = useState(initGridOutput(gridX))
+    const [pattern, setPattern] = useState(initPattern(gridX))
 
     const checkErrors = () => {
         // 0 IS NULL
@@ -93,6 +97,10 @@ function App() {
         document.addEventListener('keypress', e => {
             if (pointer.x === 5 && pointer.y === 5) return null
             if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
+            if (!(alphabet.includes(e.key))) {
+                if (e.key.toLowerCase() === 'backspace' && pointer.x !== 0) { changeGridValue(--pointer.x, pointer.y, ' ') }
+                return
+            }
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
             if (pointer.x === 4) { checkErrors() }
             pointer.x++
@@ -108,7 +116,8 @@ function App() {
                     <div>About</div>
                 </div>
             </div>
-            <div className='wordle-container flex justify-center items-center h-screen'>
+            <div className='wordle-container flex flex-col justify-center items-center h-screen'>
+                <p className='m-5'>{ guess }</p>
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
                     { gridOutput }
                 </div>
