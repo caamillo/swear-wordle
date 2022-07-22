@@ -17,7 +17,6 @@ function Box({ inchar, pattern, id }) {
                 setColor('#ffffff')
                 break
         }
-        console.log(color)
     }, [pattern])
 
     return (

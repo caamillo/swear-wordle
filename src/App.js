@@ -11,6 +11,10 @@ import Box from './components/Box'
 const gridX = 5
 const gridY = 6
 
+const swears = 'cazzi cazzo cesso fighe froci merda merde negra negro puppa puppe tetta tette troia troie troio zinne'.split(' ')
+const guess = swears[Math.floor(Math.random() * swears.length)].toUpperCase()
+console.log(guess)
+
 const initGridOutput = () => {
     const grid = []
     for (let i = 0; i < gridY; i++) { // FUCK GITHUB COPILOT
@@ -51,8 +55,6 @@ const pointer = {
 
 function App() {
 
-    const guess = 'hello'.toUpperCase()
-
     const [gridInput, setGridInput] = useState(initGridInput())
     const [gridOutput, setGridOutput] = useState(initGridOutput())
     const [pattern, setPattern] = useState(initPattern())
@@ -62,7 +64,6 @@ function App() {
         // 1 IS FALSE
         // 2 IS NOT IN POSITION
         // 3 IS TRUE
-        console.log(gridInput[pointer.y])
         const word = gridInput[pointer.y].join('')
         const temppattern = []
         for (let cw = 0; cw < guess.length; cw++) {
@@ -72,7 +73,6 @@ function App() {
         }
         const temppattern2 = initPattern()
         temppattern2[pointer.y] = temppattern
-        console.log(temppattern2)
         setPattern(temppattern2)
     }
 
@@ -84,18 +84,15 @@ function App() {
     }
 
     useEffect(() => {
-        console.log('modifica effettuata')
         setGridOutput(
             gridInput.map( (row, crow) => row.map( (val, cval) => <Box pattern={ pattern[crow][cval] } inchar={ val != null ? val : '' } id={ '' + crow + cval } key={ '' + crow + cval } /> ))
         )
-        console.log(gridOutput)
     }, [gridInput])
 
     useEffect(() => {
         document.addEventListener('keypress', e => {
             if (pointer.x === 5 && pointer.y === 5) return null
             if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
-            console.log(pointer)
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
             if (pointer.x === 4) { checkErrors() }
             pointer.x++
