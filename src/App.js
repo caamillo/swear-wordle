@@ -42,6 +42,11 @@ function App() {
     const [gridInput, setGridInput] = useState(initGridInput())
     const [gridOutput, setGridOutput] = useState(initGridOutput())
 
+    const checkErrors = () => {
+        const word = gridInput[pointer.y].join('')
+        console.log(word)
+    }
+
     const changeGridValue = (x, y, value) => {
         if (value == null || value == '') return null
         const grid = [...gridInput]
@@ -64,6 +69,7 @@ function App() {
             console.log(pointer)
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
             pointer.x++
+            if (pointer.x === 5) { checkErrors() }
         });
     }, [])
 
