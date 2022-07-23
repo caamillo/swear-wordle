@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import './tailwind/input.css'
 import './tailwind/output.css'
 
+// CSS
+import './css/modal.css'
+
 // Components
 import Box from './components/Box'
 
@@ -110,7 +113,18 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if (won) alert('won!')
+        const modalWrap = document.querySelector('.modal-wrap')
+        const modalCard = document.querySelector('.modal-content')
+        if (won) {
+            setTimeout(() => {
+                modalWrap.classList.add('fadeInOverlay')
+                setTimeout(() => {
+                    modalWrap.style.opacity = 1
+                    modalCard.classList.add('fadeInCard')
+                    setTimeout(() => modalCard.style.opacity = 1, 500)
+                }, 2e3)
+            }, 200)
+        }
     }, [won])
 
     return (
@@ -123,8 +137,8 @@ function App() {
                 </div>
             </div>
             <div className='wordle-modal fixed w-full h-full'>
-                <div className='modal-wrap backdrop-blur-sm transition delay-75 opacity-0 flex justify-center items-center w-full h-full'>
-                    <div className='modal-content bg-[#201f1f] transition delay-75 opacity-0 p-6 rounded-md space-y-3'>
+                <div className='modal-wrap backdrop-blur-md opacity-0 flex justify-center items-center w-full h-full'>
+                    <div className='modal-content bg-[#201f1f] opacity-0 p-6 rounded-md space-y-3'>
                         <div className='modal-title'>
                             <div className='text-2xl font-bold'>Congrats</div>
                             <div className='text-xs'>You've just won!</div>
