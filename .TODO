@@ -1,1 +1,22 @@
-mobile support
+Fixes:
+    + mobile responsive
+
+Hot Fixes:
+    + fix animation in chrome
+    + fix restart function (junk data not removing)
+    + fix event keyboard is playend even if the game's ended
+    + fix style spaces (the fixed bar is too big and eats the actual grid)
+
+Features:
+    - create more modes like:
+        - guess 5 characters swear word (DONE)
+        + guess 6
+        + guess 7
+        ...
+        + up to 8 (?)
+
+        + random word range 5 - N
+
+    + add footer credits
+    + README
+    + Youtube Video ASMR
