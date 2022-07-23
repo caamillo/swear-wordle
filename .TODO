@@ -4,7 +4,6 @@ Fixes:
 Hot Fixes:
     + fix animation in chrome
     + fix restart function (junk data not removing)
-    + fix event keyboard is playend even if the game's ended
     + fix style spaces (the fixed bar is too big and eats the actual grid)
 
 Features:
@@ -15,8 +14,12 @@ Features:
         ...
         + up to 8 (?)
 
-        + random word range 5 - N
+        + random word range 5 - N (range input)
 
     + add footer credits
     + README
     + Youtube Video ASMR
+
+Beautify:
+    - gradient for each grid
+    - selected row lighter

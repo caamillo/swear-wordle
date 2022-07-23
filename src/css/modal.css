@@ -1,11 +1,6 @@
-.fadeInOverlay{
-    opacity: 0;
-    animation: fadeInOverlay 2s ease-in-out;
-}
-
 .fadeInCard{
     opacity: 0;
-    animation: fadeInCard .5s ease-in;
+    animation: fadeInCard 1s ease-in;
 }
 
 @keyframes fadeInCard {
@@ -18,11 +13,5 @@
     100% {
         opacity: 1;
         transform: scale(100%);
-    }
-}
-
-@keyframes fadeInOverlay {
-    to {
-        opacity: 1;
     }
 }

@@ -1,5 +1,5 @@
 // React
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Taiwind
 import './tailwind/input.css'
@@ -64,7 +64,18 @@ function App() {
     const [gridInput, setGridInput] = useState(initGridInput(gridX))
     const [gridOutput, setGridOutput] = useState(initGridOutput(gridX))
     const [pattern, setPattern] = useState(initPattern(gridX))
+    const [isCtrlDown, setIsCtrlDown] = useState(false)
     const [won, setWon] = useState(false)
+
+    // Refs
+    const wonRef = useRef(won)
+    const isCtrlDownRef = useRef(isCtrlDown)
+
+    // Update Refs
+    useEffect(() => {
+        wonRef.current = won
+        isCtrlDownRef.current = isCtrlDown
+    }, [won, isCtrlDown])
 
     const restart = () => {
         const modalWrap = document.querySelector('.modal-wrap')
@@ -77,6 +88,7 @@ function App() {
         modalCard.style.opacity = 0
         modalWrap.classList.remove('fadeInOverlay')
         modalWrap.style.opacity = 0
+        console.log(gridInput)
     }
 
     const checkErrors = () => {
@@ -98,7 +110,6 @@ function App() {
     }
 
     const changeGridValue = (x, y, value) => {
-        console.log(won)
         if (won) return
         if (value == null || value == '') return null
         const grid = [...gridInput]
@@ -113,8 +124,14 @@ function App() {
     }, [gridInput])
 
     useEffect(() => {
-        document.addEventListener('keypress', e => {
-            if (pointer.x === 5 && pointer.y === 5) return null
+        document.addEventListener('keyup', e => {
+            if (e.key.toLowerCase() === 'control') return setIsCtrlDown(false)
+        })
+        document.addEventListener('keydown', e => {
+            if (wonRef.current) return
+            if (e.key.toLowerCase() === 'control') return setIsCtrlDown(true)
+            if (isCtrlDownRef.current) return
+            if (pointer.x === 5 && pointer.y === 5) return
             if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
             if (!(alphabet.includes(e.key))) {
                 if (e.key.toLowerCase() === 'backspace' && pointer.x !== 0) { changeGridValue(--pointer.x, pointer.y, ' ') }
@@ -123,7 +140,7 @@ function App() {
             changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
             if (pointer.x === 4) { checkErrors() }
             pointer.x++
-        });
+        })
     }, [])
 
     useEffect(() => {
@@ -131,12 +148,9 @@ function App() {
         const modalCard = document.querySelector('.modal-content')
         if (won) {
             setTimeout(() => {
-                modalWrap.classList.add('fadeInOverlay')
-                setTimeout(() => {
-                    modalWrap.style.opacity = 1
-                    modalCard.classList.add('fadeInCard')
-                    setTimeout(() => modalCard.style.opacity = 1, 500)
-                }, 2e3)
+                modalWrap.style.display = 'flex'
+                modalCard.classList.add('fadeInCard')
+                setTimeout(() => modalCard.style.opacity = 1, 500)
             }, 200)
         }
     }, [won])
@@ -151,7 +165,7 @@ function App() {
                 </div>
             </div>
             <div className='wordle-modal fixed w-full h-full'>
-                <div className='modal-wrap backdrop-blur-md opacity-0 flex justify-center items-center w-full h-full'>
+                <div className='modal-wrap backdrop-blur-md hidden justify-center items-center w-full h-full'>
                     <div className='modal-content bg-[#201f1f] opacity-0 p-6 rounded-md space-y-3'>
                         <div className='modal-title'>
                             <div className='text-2xl font-bold'>Congrats</div>
