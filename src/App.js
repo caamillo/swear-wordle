@@ -62,6 +62,7 @@ function App() {
     const [gridInput, setGridInput] = useState(initGridInput(gridX))
     const [gridOutput, setGridOutput] = useState(initGridOutput(gridX))
     const [pattern, setPattern] = useState(initPattern(gridX))
+    const [won, setWon] = useState(false)
 
     const checkErrors = () => {
         // 0 IS NULL
@@ -71,10 +72,11 @@ function App() {
         const word = gridInput[pointer.y].join('')
         const temppattern = []
         for (let cw = 0; cw < guess.length; cw++) {
-            if (guess[cw] == word[cw])  temppattern.push(3) // IN POSITION
+            if (guess[cw] == word[cw]) temppattern.push(3) // IN POSITION
             else if (guess.includes(word[cw])) temppattern.push(2)  // NOT IN POSITION
             else temppattern.push(1) // FALSE
         }
+        if (temppattern.every( p => p === 3 )) setWon(true)
         const temppattern2 = initPattern()
         temppattern2[pointer.y] = temppattern
         setPattern(temppattern2)
@@ -106,6 +108,10 @@ function App() {
             pointer.x++
         });
     }, [])
+
+    useEffect(() => {
+        if (won) alert('won!')
+    }, [won])
 
     return (
         <div className="App">
