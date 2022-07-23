@@ -12,13 +12,12 @@ import './css/modal.css'
 import Box from './components/Box'
 
 // Utils
-import { swears5 } from './utils/swears';
+import { getSwear } from './utils/swears';
 import alphabet from 'alphabet'
 
 const gridY = 6
 
-const swears = swears5
-const guess = swears[Math.floor(Math.random() * swears.length)].toUpperCase()
+const guess = getSwear(5) // 5
 // console.log(guess)
 
 const initGridOutput = (gridX) => {
@@ -67,6 +66,13 @@ function App() {
     const [pattern, setPattern] = useState(initPattern(gridX))
     const [won, setWon] = useState(false)
 
+    const restart = () => {
+        setGridInput(initGridInput(gridX))
+        setGridOutput(initGridOutput(gridX))
+        setPattern(initPattern(gridX))
+        setWon(false)
+    }
+
     const checkErrors = () => {
         // 0 IS NULL
         // 1 IS FALSE
@@ -86,6 +92,8 @@ function App() {
     }
 
     const changeGridValue = (x, y, value) => {
+        console.log(won)
+        if (won) return
         if (value == null || value == '') return null
         const grid = [...gridInput]
         grid[y][x] = value // <Box inchar={ value } key={ '' + x + y } />
@@ -129,7 +137,7 @@ function App() {
 
     return (
         <div className="App">
-            <div className='wordle-navbar absolute w-full z-10'>
+            <div className='wordle-navbar fixed w-full bg-[#121212] z-10'>
                 <div className='flex items-center justify-between p-4 px-6'>
                     <div className='hover:opacity-75 transition delay-75'>Menu</div>
                     <div className='hover:opacity-75 transition delay-75 text-2xl font-bold'>Swear Wordle</div>
@@ -143,7 +151,7 @@ function App() {
                             <div className='text-2xl font-bold'>Congrats</div>
                             <div className='text-xs'>You've just won!</div>
                         </div>
-                        <div className='modal-desc text-sm'>Wanna do a fresh <button className='text-[#944dd3]'>restart</button>?</div>
+                        <div className='modal-desc text-sm'>Wanna do a fresh <button onClick={ restart } className='text-[#944dd3]'>restart</button>?</div>
                     </div>
                 </div>
             </div>
