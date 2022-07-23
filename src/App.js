@@ -109,11 +109,22 @@ function App() {
 
     return (
         <div className="App">
-            <div className='wordle-navbar absolute w-full'>
+            <div className='wordle-navbar absolute w-full z-10'>
                 <div className='flex items-center justify-between p-4 px-6'>
-                    <div>Menu</div>
-                    <div className='text-2xl font-bold'>Swear Wordle</div>
-                    <div>About</div>
+                    <div className='hover:opacity-75 transition delay-75'>Menu</div>
+                    <div className='hover:opacity-75 transition delay-75 text-2xl font-bold'>Swear Wordle</div>
+                    <div className='hover:opacity-75 transition delay-75'><a href='https://github.com/caamillo/swear-wordle'>About</a></div>
+                </div>
+            </div>
+            <div className='wordle-modal fixed w-full h-full'>
+                <div className='modal-wrap backdrop-blur-sm transition delay-75 opacity-0 flex justify-center items-center w-full h-full'>
+                    <div className='modal-content bg-[#201f1f] transition delay-75 opacity-0 p-6 rounded-md space-y-3'>
+                        <div className='modal-title'>
+                            <div className='text-2xl font-bold'>Congrats</div>
+                            <div className='text-xs'>You've just won!</div>
+                        </div>
+                        <div className='modal-desc text-sm'>Wanna do a fresh <button className='text-[#944dd3]'>restart</button>?</div>
+                    </div>
                 </div>
             </div>
             <div className='wordle-container flex flex-col justify-center items-center h-screen'>
