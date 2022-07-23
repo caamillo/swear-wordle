@@ -7,6 +7,9 @@ function Box({ inchar, pattern, id }) {
 
     useEffect(() => {
         switch(pattern) {
+            case 0:
+                setColor('transparent')
+                break
             case 1:
                 setColor('#6a2e2e')
                 break

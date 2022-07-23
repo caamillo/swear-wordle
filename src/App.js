@@ -67,10 +67,16 @@ function App() {
     const [won, setWon] = useState(false)
 
     const restart = () => {
+        const modalWrap = document.querySelector('.modal-wrap')
+        const modalCard = document.querySelector('.modal-content')
         setGridInput(initGridInput(gridX))
         setGridOutput(initGridOutput(gridX))
         setPattern(initPattern(gridX))
         setWon(false)
+        modalCard.classList.remove('fadeInCard')
+        modalCard.style.opacity = 0
+        modalWrap.classList.remove('fadeInOverlay')
+        modalWrap.style.opacity = 0
     }
 
     const checkErrors = () => {
