@@ -10,6 +10,7 @@ import './css/modal.css'
 
 // Components
 import Box from './components/Box'
+import Keyboard from './components/Keyboard';
 
 // Utils
 import { getSwear } from './utils/swears';
@@ -175,12 +176,13 @@ function App() {
                     </div>
                 </div>
             </div>
-            <div className='wordle-container flex flex-col justify-center items-center h-screen'>
+            <div className='wordle-container flex flex-col justify-center items-center h-[800px]'>
                 <p className='m-5'>{ guess }</p>
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
                     { gridOutput }
                 </div>
             </div>
+            <Keyboard />
         </div>
     );
 }
