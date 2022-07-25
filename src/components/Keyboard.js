@@ -1,7 +1,7 @@
 // Components
 import KbdBox from './KbdBox'
 
-function Keyboard() {
+function Keyboard({ addChar }) {
 
     const kbdRows = [
         ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
@@ -11,8 +11,8 @@ function Keyboard() {
 
     return (
         <div className='absolute bottom-0 w-full'>
-            <div className='flex flex-col justify-center items-center mb-6 md:mb-3'>
-                { kbdRows.map( (row, crow) => <div key={ crow } className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } inchar={ col } /> ) }</div> ) }
+            <div className='flex flex-col justify-center items-center mb-6'>
+                { kbdRows.map( (row, crow) => <div key={ crow } className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } addChar={ addChar } inchar={ col } /> ) }</div> ) }
             </div>
         </div>
     )

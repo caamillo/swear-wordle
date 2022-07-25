@@ -23,7 +23,7 @@ function Box({ inchar, pattern, id }) {
     }, [pattern])
 
     return (
-        <div id={ id } className='w-[60px] h-[60px] border-2 border-[#9e9e9e] flex justify-center items-center text-3xl transition ease-linear hover:bg-[#ffffff62]' style={{ backgroundColor: color }}>{ inchar }</div>
+        <div id={ id } className='w-[50px] md:w-[60px] aspect-square border-2 border-[#9e9e9e] flex justify-center items-center text-3xl transition ease-linear hover:bg-[#ffffff62]' style={{ backgroundColor: color }}>{ inchar }</div>
     )
 }
 

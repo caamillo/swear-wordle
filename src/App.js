@@ -78,6 +78,21 @@ function App() {
         isCtrlDownRef.current = isCtrlDown
     }, [won, isCtrlDown])
 
+    const addChar = (inchar) => {
+        if (wonRef.current) return
+        if (inchar.toLowerCase() === 'control') return setIsCtrlDown(true)
+        if (isCtrlDownRef.current) return
+        if (pointer.x === 5 && pointer.y === 5) return
+        if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
+        if (!(alphabet.includes(inchar))) {
+            if (inchar.toLowerCase() === 'backspace' && pointer.x !== 0) { changeGridValue(--pointer.x, pointer.y, ' ') }
+            return
+        }
+        changeGridValue(pointer.x, pointer.y, inchar.toUpperCase())
+        if (pointer.x === 4) { checkErrors() }
+        pointer.x++
+    }
+
     const restart = () => {
         const modalWrap = document.querySelector('.modal-wrap')
         const modalCard = document.querySelector('.modal-content')
@@ -114,7 +129,7 @@ function App() {
         if (won) return
         if (value == null || value == '') return null
         const grid = [...gridInput]
-        grid[y][x] = value // <Box inchar={ value } key={ '' + x + y } />
+        grid[y][x] = value.toUpperCase() // <Box inchar={ value } key={ '' + x + y } />
         setGridInput(grid)
     }
 
@@ -129,18 +144,7 @@ function App() {
             if (e.key.toLowerCase() === 'control') return setIsCtrlDown(false)
         })
         document.addEventListener('keydown', e => {
-            if (wonRef.current) return
-            if (e.key.toLowerCase() === 'control') return setIsCtrlDown(true)
-            if (isCtrlDownRef.current) return
-            if (pointer.x === 5 && pointer.y === 5) return
-            if (pointer.x === 5) { pointer.x = 0; pointer.y++ }
-            if (!(alphabet.includes(e.key))) {
-                if (e.key.toLowerCase() === 'backspace' && pointer.x !== 0) { changeGridValue(--pointer.x, pointer.y, ' ') }
-                return
-            }
-            changeGridValue(pointer.x, pointer.y, e.key.toUpperCase())
-            if (pointer.x === 4) { checkErrors() }
-            pointer.x++
+            addChar(e.key)
         })
     }, [])
 
@@ -159,10 +163,10 @@ function App() {
     return (
         <div className="App">
             <div className='wordle-navbar fixed w-full bg-[#121212] z-10'>
-                <div className='flex items-center justify-between p-4 px-6'>
-                    <div className='hover:opacity-75 transition delay-75'>Menu</div>
+                <div className='flex items-center justify-center md:justify-between p-4 px-6'>
+                    <div className='hover:opacity-75 transition delay-75 hidden md:block'>Menu</div>
                     <div className='hover:opacity-75 transition delay-75 text-2xl font-bold'>Swear Wordle</div>
-                    <div className='hover:opacity-75 transition delay-75'><a href='https://github.com/caamillo/swear-wordle'>About</a></div>
+                    <div className='hover:opacity-75 transition delay-75 hidden md:block'><a href='https://github.com/caamillo/swear-wordle'>About</a></div>
                 </div>
             </div>
             <div className='wordle-modal fixed w-full h-full'>
@@ -177,12 +181,12 @@ function App() {
                 </div>
             </div>
             <div className='wordle-container flex flex-col justify-center items-center h-[800px]'>
-                <p className='m-5'>{ guess }</p>
+                {/* guess && <p className='m-5'>{ guess }</p> */}
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
                     { gridOutput }
                 </div>
             </div>
-            <Keyboard/>
+            <Keyboard addChar={ addChar } />
         </div>
     );
 }
