@@ -182,7 +182,7 @@ function App() {
                     { gridOutput }
                 </div>
             </div>
-            <Keyboard />
+            <Keyboard/>
         </div>
     );
 }

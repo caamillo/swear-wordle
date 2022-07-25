@@ -12,7 +12,7 @@ function Keyboard() {
     return (
         <div className='absolute bottom-0 w-full'>
             <div className='flex flex-col justify-center items-center mb-6 md:mb-3'>
-                { kbdRows.map( (row, crow) => <div className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } inchar={ col } /> ) }</div> ) }
+                { kbdRows.map( (row, crow) => <div key={ crow } className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } inchar={ col } /> ) }</div> ) }
             </div>
         </div>
     )
