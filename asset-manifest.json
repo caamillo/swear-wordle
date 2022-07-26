@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/swear-wordle/static/css/main.9bf54dc6.css",
-    "main.js": "/swear-wordle/static/js/main.0b8773a9.js",
+    "main.css": "/swear-wordle/static/css/main.95877432.css",
+    "main.js": "/swear-wordle/static/js/main.33c2786c.js",
     "index.html": "/swear-wordle/index.html",
-    "main.9bf54dc6.css.map": "/swear-wordle/static/css/main.9bf54dc6.css.map",
-    "main.0b8773a9.js.map": "/swear-wordle/static/js/main.0b8773a9.js.map"
+    "main.95877432.css.map": "/swear-wordle/static/css/main.95877432.css.map",
+    "main.33c2786c.js.map": "/swear-wordle/static/js/main.33c2786c.js.map"
   },
   "entrypoints": [
-    "static/css/main.9bf54dc6.css",
-    "static/js/main.0b8773a9.js"
+    "static/css/main.95877432.css",
+    "static/js/main.33c2786c.js"
   ]
 }
