@@ -21,17 +21,6 @@ const gridY = 6
 const guess = getSwear(5) // 5
 // console.log(guess)
 
-const initGridOutput = (gridX) => {
-    const grid = []
-    for (let i = 0; i < gridY; i++) { // FUCK GITHUB COPILOT
-        grid.push([])
-        for (let j = 0; j < gridX; j++) {
-            grid[i].push(<Box key={ '' + i + j } />)
-        }
-    }
-    return grid
-}
-
 const initGridInput = (gridX) => {
     const grid = []
     for (let i = 0; i < gridY; i++) {
@@ -40,6 +29,7 @@ const initGridInput = (gridX) => {
             grid[i].push('')
         }
     }
+    console.log(grid)
     return grid
 }
 
@@ -63,7 +53,6 @@ function App() {
 
     const [gridX, setGridX] = useState(5)
     const [gridInput, setGridInput] = useState(initGridInput(gridX))
-    const [gridOutput, setGridOutput] = useState(initGridOutput(gridX))
     const [pattern, setPattern] = useState(initPattern(gridX))
     const [isCtrlDown, setIsCtrlDown] = useState(false)
     const [pressedChar, setPressedChar] = useState()
@@ -98,13 +87,14 @@ function App() {
         const modalWrap = document.querySelector('.modal-wrap')
         const modalCard = document.querySelector('.modal-content')
         setGridInput(initGridInput(gridX))
-        setGridOutput(initGridOutput(gridX))
         setPattern(initPattern(gridX))
         setWon(false)
         modalCard.classList.remove('fadeInCard')
         modalCard.style.opacity = 0
         modalWrap.classList.remove('fadeInOverlay')
         modalWrap.style.opacity = 0
+        pointer.x = 0
+        pointer.y = 0
         console.log(gridInput)
     }
 
@@ -133,12 +123,6 @@ function App() {
         grid[y][x] = value.toUpperCase() // <Box inchar={ value } key={ '' + x + y } />
         setGridInput(grid)
     }
-
-    useEffect(() => {
-        setGridOutput(
-            gridInput.map( (row, crow) => row.map( (val, cval) => <Box pattern={ pattern[crow][cval] } inchar={ val != null ? val : '' } id={ '' + crow + cval } key={ '' + crow + cval } /> ))
-        )
-    }, [gridInput])
 
     useEffect(() => {
         document.addEventListener('keyup', e => {
@@ -186,9 +170,9 @@ function App() {
                 </div>
             </div>
             <div className='wordle-container flex flex-col justify-center items-center h-screen'>
-                {/* guess && <p className='m-5'>{ guess }</p> */}
+                { guess && <p className='m-5'>{ guess }</p> }
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
-                    { gridOutput }
+                    { gridInput.map( (row, crow) => row.map( (val, cval) => <Box pattern={ pattern[crow][cval] } inchar={ val != null ? val : '' } id={ '' + crow + cval } key={ '' + crow + cval } /> )) }
                 </div>
                 <Keyboard pressedChar={ pressedChar } addChar={ addChar } />
             </div>
