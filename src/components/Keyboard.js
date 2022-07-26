@@ -13,10 +13,8 @@ function Keyboard({ addChar, pressedChar }) {
     ]
 
     return (
-        <div className='absolute bottom-0 w-full'>
-            <div className='flex flex-col justify-center items-center mb-6'>
-                { kbdRows.map( (row, crow) => <div key={ crow } className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } addChar={ addChar } icon={ col !== 'backspace' ? (col === 'enter' ? <ChevronUpIcon className='w-[30px]' /> : null) : <BackspaceIcon className='w-[30px]' /> } isPressed={ (pressedChar != null) && (pressedChar.toUpperCase() === col.toUpperCase()) } inchar={ col } /> ) }</div> ) }
-            </div>
+        <div className='flex flex-col items-center relative top-[140px]'>
+            { kbdRows.map( (row, crow) => <div key={ crow } className='flex'>{ row.map( (col, ccol) => <KbdBox key={ 'K' + crow + ccol } addChar={ addChar } icon={ col !== 'backspace' ? (col === 'enter' ? <ChevronUpIcon className='w-[30px]' /> : null) : <BackspaceIcon className='w-[30px]' /> } isPressed={ (pressedChar != null) && (pressedChar.toUpperCase() === col.toUpperCase()) } inchar={ col } /> ) }</div> ) }
         </div>
     )
 }

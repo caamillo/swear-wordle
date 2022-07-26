@@ -557,8 +557,76 @@ video {
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
 .bottom-0 {
   bottom: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.top-\[10px\] {
+  top: 10px;
+}
+
+.top-\[100px\] {
+  top: 100px;
+}
+
+.top-\[1000px\] {
+  top: 1000px;
+}
+
+.top-\[100vw\] {
+  top: 100vw;
+}
+
+.top-\[500px\] {
+  top: 500px;
+}
+
+.bottom-10 {
+  bottom: 2.5rem;
+}
+
+.top-10 {
+  top: 2.5rem;
+}
+
+.top-\[200px\] {
+  top: 200px;
+}
+
+.top-\[150px\] {
+  top: 150px;
+}
+
+.top-\[170px\] {
+  top: 170px;
+}
+
+.top-\[180px\] {
+  top: 180px;
+}
+
+.top-\[110px\] {
+  top: 110px;
+}
+
+.top-\[120px\] {
+  top: 120px;
+}
+
+.top-\[130px\] {
+  top: 130px;
+}
+
+.top-\[140px\] {
+  top: 140px;
 }
 
 .z-10 {
@@ -603,6 +671,10 @@ video {
 
 .h-\[30px\] {
   height: 30px;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .w-full {
@@ -686,6 +758,10 @@ video {
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .gap-3 {
   gap: 0.75rem;
 }
@@ -694,6 +770,18 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.space-y-9 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-10 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
 }
 
 .rounded-md {

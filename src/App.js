@@ -185,13 +185,13 @@ function App() {
                     </div>
                 </div>
             </div>
-            <div className='wordle-container flex flex-col justify-center items-center h-[800px]'>
+            <div className='wordle-container flex flex-col justify-center items-center h-screen'>
                 {/* guess && <p className='m-5'>{ guess }</p> */}
                 <div className='wordle-grid grid grid-cols-5 grid-rows-6 gap-3'>
                     { gridOutput }
                 </div>
+                <Keyboard pressedChar={ pressedChar } addChar={ addChar } />
             </div>
-            <Keyboard pressedChar={ pressedChar } addChar={ addChar } />
         </div>
     );
 }
