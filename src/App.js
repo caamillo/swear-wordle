@@ -66,6 +66,7 @@ function App() {
     const [gridOutput, setGridOutput] = useState(initGridOutput(gridX))
     const [pattern, setPattern] = useState(initPattern(gridX))
     const [isCtrlDown, setIsCtrlDown] = useState(false)
+    const [pressedChar, setPressedChar] = useState()
     const [won, setWon] = useState(false)
 
     // Refs
@@ -142,9 +143,13 @@ function App() {
     useEffect(() => {
         document.addEventListener('keyup', e => {
             if (e.key.toLowerCase() === 'control') return setIsCtrlDown(false)
+            setTimeout(() => {
+                setPressedChar(null)
+            }, 300)
         })
         document.addEventListener('keydown', e => {
             addChar(e.key)
+            setPressedChar(e.key)
         })
     }, [])
 
@@ -186,7 +191,7 @@ function App() {
                     { gridOutput }
                 </div>
             </div>
-            <Keyboard addChar={ addChar } />
+            <Keyboard pressedChar={ pressedChar } addChar={ addChar } />
         </div>
     );
 }
